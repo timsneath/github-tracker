@@ -11,6 +11,8 @@ const acceptHeader = 'application/vnd.github.v3+json';
 const userAgentHeader = 'github-startracker';
 const cachePath = 'cache.json';
 
+ArgResults argResults;
+
 final List contentRepos = [
   'freeCodeCamp/freeCodeCamp',
   'EbookFoundation/free-programming-books',
@@ -47,17 +49,36 @@ final List contentRepos = [
 ];
 
 Future main(List<String> args) async {
-  final parser = new ArgParser();
-  parser.addFlag('refresh',
-      defaultsTo: false,
-      abbr: 'r',
-      help: 'Refresh data with API call to GitHub. By default, a cache file is '
-          'used if it exists.');
-  parser.addFlag('help',
-      defaultsTo: false, abbr: 'h', negatable: false, help: 'Displays help');
+  final parser = new ArgParser()
+    ..addFlag('refresh',
+        defaultsTo: false,
+        abbr: 'r',
+        help: 'Refresh data with API call to GitHub.\nBy default, a cache file '
+            'is used if it exists.')
+    ..addFlag('include-archived-repos',
+        defaultsTo: false,
+        abbr: 'a',
+        negatable: true,
+        help: 'Includes archived repos in the ranked list of top repos.\n'
+            'Default is to exclude them.')
+    ..addFlag('include-content-repos',
+        defaultsTo: false,
+        abbr: 'c',
+        negatable: true,
+        help: 'Includes content-only repos in the ranked list of top repos.\n'
+            'Default is to exclude them.')
+    ..addFlag('help',
+        defaultsTo: false,
+        abbr: 'h',
+        negatable: false,
+        help: 'Displays this usage info.');
 
-  final argResults = parser.parse(args);
+  argResults = parser.parse(args);
   if (argResults['help']) {
+    print('Prints a ranked list of the top GitHub repos based on the specified '
+        'options.\n\n'
+        'Usage: dart repo-stars.dart [options]\n\n'
+        'Common options:');
     print(parser.usage);
     return;
   }
@@ -66,18 +87,24 @@ Future main(List<String> args) async {
   if (argResults['refresh'] ||
       FileSystemEntity.typeSync(cachePath) == FileSystemEntityType.notFound) {
     repos = await retrieveTop300StarredRepos();
-    writeStarsPage(repos);
+    await writeStarsPage(repos);
   } else {
     repos = loadStarsPage();
   }
 
-  printStarResults(repos.sublist(0, 100));
+  printStarResults(repos);
 }
 
-void printStarResults(List repos) {
+void printStarResults(List repos, {num begin = 0, num end = 100}) {
   // filter archived and content-only repos
-  repos.removeWhere((c) => c['archived']);
-  repos.removeWhere((c) => contentRepos.contains(c['full_name']));
+  if (!argResults['include-archived-repos']) {
+    repos.removeWhere((c) => c['archived']);
+  }
+  if (!argResults['include-content-repos']) {
+    repos.removeWhere((c) => contentRepos.contains(c['full_name']));
+  }
+
+  repos = repos.sublist(begin, end);
 
   // find the longest repo name; we'll use this for padding the text later
   num maxRepoNameLength =
@@ -103,7 +130,7 @@ Future<List> retrieveTop300StarredRepos() async {
 Future<String> retrieveStarsPage(int page) async {
   final response = await http.get(
       url +
-          '?q=stars%3A>20000&sort=stars&order=desc&per_page=100&page=' +
+          '?q=stars%3A>10000&sort=stars&order=desc&per_page=100&page=' +
           page.toString(),
       headers: {'User-Agent': userAgentHeader, 'Accept': acceptHeader});
 
