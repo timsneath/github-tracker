@@ -8,7 +8,7 @@ import 'package:http/http.dart' as http;
 
 const url = 'https://api.github.com/search/repositories';
 const acceptHeader = 'application/vnd.github.v3+json';
-const userAgentHeader = 'timsneath';
+const userAgentHeader = 'github-startracker';
 const cachePath = 'cache.json';
 
 final List contentRepos = [
