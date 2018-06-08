@@ -43,12 +43,16 @@ The command above also stores more detailed output from GitHub in a file
 `cache.json`. Repeated invocations over the command use the cache to minimize
 hitting the GitHub rate limit, although you can refresh the cache by using the 
 `--refresh` option, for example:
-
 ```
 $ dart repo-stars.dart --refresh
 ```
 
 By default, the command ignores archived and content-only repos. 
+
+You can get further usage help by running:
+```
+$ dart repo-stars.dart --help
+```
 
 ## Known Issues
 
