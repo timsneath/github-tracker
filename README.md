@@ -47,3 +47,15 @@ hitting the GitHub rate limit, although you can refresh the cache by using the
 ```
 $ dart repo-stars.dart --refresh
 ```
+
+By default, the command ignores archived and content-only repos. 
+
+## Known Issues
+
+- The command uses a brute force of getting the top 300 repos and then 
+filtering. 
+
+- More options would be nice, e.g. --csv to generate output suitable for 
+importing into Microsoft Excel, Google Sheets etc.
+
+- Should be able to include archived and content-only repos based on a flag.
