@@ -52,10 +52,9 @@ By default, the command ignores archived and content-only repos.
 
 ## Known Issues
 
-- The command uses a brute force of getting the top 300 repos with > 25,000
-stars and then filtering. 
+- The command uses a brute force of getting the top 300 repos with > 10,000
+stars and then filtering. We should get a count and grab the appropriate
+quantity of paginated content to fill the JSON cache as appropriate.
 
 - More options would be nice, e.g. `--csv` to generate output suitable for 
 importing into Microsoft Excel, Google Sheets etc.
-
-- Should be able to include archived and content-only repos based on a flag.
