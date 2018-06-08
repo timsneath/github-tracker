@@ -52,10 +52,10 @@ By default, the command ignores archived and content-only repos.
 
 ## Known Issues
 
-- The command uses a brute force of getting the top 300 repos and then 
-filtering. 
+- The command uses a brute force of getting the top 300 repos with > 25,000
+stars and then filtering. 
 
-- More options would be nice, e.g. --csv to generate output suitable for 
+- More options would be nice, e.g. `--csv` to generate output suitable for 
 importing into Microsoft Excel, Google Sheets etc.
 
 - Should be able to include archived and content-only repos based on a flag.
