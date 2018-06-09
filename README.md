@@ -1,4 +1,6 @@
 # GitHub Repo Tracker
+[![Build Status](https://travis-ci.org/timsneath/github-tracker.svg?branch=master)](https://travis-ci.org/timsneath/github-tracker)
+
 Grabs useful information from GitHub. At present, this only has one command 
 available (but I'll probably add more over time).
 
