@@ -13,6 +13,8 @@ const cachePath = 'cache.json';
 
 ArgResults argResults;
 
+// hardcoded for now. wonder if we can derive this list by looking at repos
+// that are mostly Markdown or HTML?
 final List contentRepos = [
   'freeCodeCamp/freeCodeCamp',
   'EbookFoundation/free-programming-books',
@@ -84,15 +86,27 @@ Future main(List<String> args) async {
   }
 
   List repos;
-  if (argResults['refresh'] ||
-      FileSystemEntity.typeSync(cachePath) == FileSystemEntityType.notFound) {
-    repos = await retrieveTop300StarredRepos();
-    await writeStarsPage(repos);
+  if (argResults['refresh'] || cacheMissingOrInvalidated(cachePath)) {
+    repos = await retrieveTopStarredRepos();
+    await writeStarredReposToCache(repos);
   } else {
-    repos = loadStarsPage();
+    repos = loadStarredReposFromCache();
   }
 
   printStarResults(repos);
+}
+
+bool cacheMissingOrInvalidated(String cachePath) {
+  if (FileSystemEntity.typeSync(cachePath) != FileSystemEntityType.file) {
+    return true;
+  }
+
+  final cacheLastModifiedDateTime = new File(cachePath).lastModifiedSync();
+  if (DateTime.now().difference(cacheLastModifiedDateTime).inHours > 24) {
+    return true;
+  } else {
+    return false;
+  }
 }
 
 void printStarResults(List repos, {num begin = 0, num end = 100}) {
@@ -110,7 +124,7 @@ void printStarResults(List repos, {num begin = 0, num end = 100}) {
   num maxRepoNameLength =
       repos.fold(0, (t, e) => max(t, e['full_name'].length));
 
-  for (var i = 0; i < repos.length; i++) {
+  for (num i = 0; i < repos.length; i++) {
     final repo = repos[i];
     print('${(i+1).toString().padLeft(3)}  '
         '${repo['full_name'].padRight(maxRepoNameLength)} '
@@ -118,7 +132,7 @@ void printStarResults(List repos, {num begin = 0, num end = 100}) {
   }
 }
 
-Future<List> retrieveTop300StarredRepos() async {
+Future<List> retrieveTopStarredRepos() async {
   var repos = new List();
   for (num i = 1; i <= 3; i++) {
     var page = await retrieveStarsPage(i);
@@ -127,7 +141,7 @@ Future<List> retrieveTop300StarredRepos() async {
   return repos;
 }
 
-Future<String> retrieveStarsPage(int page) async {
+Future<String> retrieveStarsPage(num page) async {
   final response = await http.get(
       url +
           '?q=stars%3A>10000&sort=stars&order=desc&per_page=100&page=' +
@@ -137,16 +151,20 @@ Future<String> retrieveStarsPage(int page) async {
   return response.body;
 }
 
-List loadStarsPage() {
+List loadStarredReposFromCache() {
   final starsFile = new File(cachePath);
   final stars = starsFile.readAsStringSync();
   return json.decode(stars);
 }
 
-writeStarsPage(List repos) async {
-  var starsFile = new File(cachePath);
-  var sink = starsFile.openWrite();
-  sink.write(json.encode(repos));
-  await sink.flush();
-  await sink.close();
+writeStarredReposToCache(List repos) async {
+  try {
+    var starsFile = new File(cachePath);
+    var sink = starsFile.openWrite();
+    sink.write(json.encode(repos));
+    await sink.flush();
+    await sink.close();
+  } catch (e) {
+    stderr.write('Error writing cache to disk.\n');
+  }
 }
