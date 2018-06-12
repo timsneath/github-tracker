@@ -104,7 +104,7 @@ bool cacheMissingOrInvalidated(String cachePath) {
   }
 
   final cacheLastModifiedDateTime = new File(cachePath).lastModifiedSync();
-  if (DateTime.now().difference(cacheLastModifiedDateTime).inHours > 24) {
+  if (new DateTime.now().difference(cacheLastModifiedDateTime).inHours > 24) {
     return true;
   } else {
     return false;
