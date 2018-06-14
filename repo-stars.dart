@@ -49,7 +49,8 @@ final List contentRepos = [
   'vsouza/awesome-ios',
   'enaqx/awesome-react',
   'awesomedata/awesome-public-datasets',
-  'tiimgreen/github-cheat-sheet'
+  'tiimgreen/github-cheat-sheet',
+  'CyC2018/Interview-Notebook'
 ];
 
 Future main(List<String> args) async {
