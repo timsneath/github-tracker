@@ -129,7 +129,7 @@ void printStarResults(List repos, {num begin = 0, num end = 100}) {
 
   for (num i = 0; i < repos.length; i++) {
     final repo = repos[i];
-    print('${(i+1).toString().padLeft(3)}  '
+    print('${(i + 1).toString().padLeft(3)}  '
         '${repo['full_name'].padRight(maxRepoNameLength)} '
         '${repo['stargazers_count'].toString().padLeft(6)}');
   }
