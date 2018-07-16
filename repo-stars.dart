@@ -54,7 +54,7 @@ final List contentRepos = [
 ];
 
 Future main(List<String> args) async {
-  final parser = new ArgParser()
+  final parser = ArgParser()
     ..addFlag('refresh',
         defaultsTo: false,
         abbr: 'r',
@@ -104,8 +104,8 @@ bool cacheMissingOrInvalidated(String cachePath) {
     return true;
   }
 
-  final cacheLastModifiedDateTime = new File(cachePath).lastModifiedSync();
-  if (new DateTime.now().difference(cacheLastModifiedDateTime).inHours > 24) {
+  final cacheLastModifiedDateTime = File(cachePath).lastModifiedSync();
+  if (DateTime.now().difference(cacheLastModifiedDateTime).inHours > 24) {
     return true;
   } else {
     return false;
@@ -136,7 +136,7 @@ void printStarResults(List repos, {num begin = 0, num end = 100}) {
 }
 
 Future<List> retrieveTopStarredRepos() async {
-  var repos = new List();
+  var repos = List();
   for (num i = 1; i <= 3; i++) {
     var page = await retrieveStarsPage(i);
     repos.addAll(json.decode(page)['items']);
@@ -155,14 +155,14 @@ Future<String> retrieveStarsPage(num page) async {
 }
 
 List loadStarredReposFromCache() {
-  final starsFile = new File(cachePath);
+  final starsFile = File(cachePath);
   final stars = starsFile.readAsStringSync();
   return json.decode(stars);
 }
 
 writeStarredReposToCache(List repos) async {
   try {
-    var starsFile = new File(cachePath);
+    var starsFile = File(cachePath);
     var sink = starsFile.openWrite();
     sink.write(json.encode(repos));
     await sink.flush();
