@@ -54,7 +54,7 @@ final List contentRepos = [
   'CyC2018/CS-Notes',
   'kdn251/interviews',
   'minimaxir/big-list-of-naughty-strings',
-  'k88hudson/git-flight-rules'
+  'k88hudson/git-flight-rules',
 ];
 
 Future main(List<String> args) async {
