@@ -16,7 +16,7 @@ Make sure you have the Dart SDK installed (<https://dartlang.org>).
 Also make sure to grab the dependencies first:
 
 ```bash
-$ cd path\to\github-tracker
+$ cd path/to/github-tracker
 $ pub get
 ```
 
