@@ -13,6 +13,13 @@ available (but I'll probably add more over time).
 
 Make sure you have the Dart SDK installed (<https://dartlang.org>).
 
+Also make sure to grab the dependencies first:
+
+```bash
+$ cd path/to/github-tracker
+$ pub get
+```
+
 The following command gives an ordered list of the top 100 repos on GitHub:
 
 ```bash
