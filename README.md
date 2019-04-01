@@ -56,15 +56,26 @@ hitting the GitHub rate limit, although you can refresh the cache by using the
 `--refresh` option, for example:
 
 ```bash
-dart repo-stars.dart --refresh
+$ dart repo-stars.dart --refresh
 ```
 
-By default, the command ignores archived and content-only repos.
+By default, the command excludes non-software repos (i.e. those which are primarily content). This includes https://github.com/freeCodeCamp/freeCodeCamp, https://github.com/EbookFoundation/free-programming-books,  https://github.com/kamranahmedse/developer-roadmap and others. This list is manually curated. 
 
+You can add content repos with the `--include-content-repos` switch. For example:
+
+```bash
+$ dart repo-stars.dart --include-content-repos | head -n 5
+  1  freeCodeCamp/freeCodeCamp                    296791
+  2  twbs/bootstrap                               129787
+  3  vuejs/vue                                    123900
+  4  facebook/react                               118973
+  5  tensorflow/tensorflow                        117898
+ ```
+ 
 You can get further usage help by running:
 
 ```bash
-dart repo-stars.dart --help
+$ dart repo-stars.dart --help
 ```
 
 ## Known Issues
