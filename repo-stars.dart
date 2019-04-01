@@ -44,8 +44,8 @@ final List contentRepos = [
   'Trinea/android-open-project',
   'donnemartin/system-design-primer',
   'Snailclimb/JavaGuide',
-  'xingshaocheng/architect-awesome'
-      'FreeCodeCampChina/freecodecamp.cn',
+  'xingshaocheng/architect-awesome',
+  'FreeCodeCampChina/freecodecamp.cn',
   'vinta/awesome-python',
   'avelino/awesome-go',
   'wasabeef/awesome-android-ui',
