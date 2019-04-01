@@ -16,6 +16,7 @@ ArgResults argResults;
 // hardcoded for now. wonder if we can derive this list by looking at repos
 // that are mostly Markdown or HTML?
 final List contentRepos = [
+  '996icu/996.ICU',
   'freeCodeCamp/freeCodeCamp',
   'EbookFoundation/free-programming-books',
   'sindresorhus/awesome',
@@ -42,7 +43,9 @@ final List contentRepos = [
   'thedaviddias/Front-End-Checklist',
   'Trinea/android-open-project',
   'donnemartin/system-design-primer',
-  'FreeCodeCampChina/freecodecamp.cn',
+  'Snailclimb/JavaGuide',
+  'xingshaocheng/architect-awesome'
+      'FreeCodeCampChina/freecodecamp.cn',
   'vinta/awesome-python',
   'avelino/awesome-go',
   'wasabeef/awesome-android-ui',
