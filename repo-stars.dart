@@ -120,7 +120,7 @@ bool cacheMissingOrInvalidated(String cachePath) {
   }
 }
 
-void printStarResults(List repos, {num begin = 0, num end = 100}) {
+void printStarResults(List repos, {int begin = 0, int end = 100}) {
   // filter archived and content-only repos
   if (!argResults['include-archived-repos']) {
     repos.removeWhere((c) => c['archived']);
@@ -132,10 +132,10 @@ void printStarResults(List repos, {num begin = 0, num end = 100}) {
   repos = repos.sublist(begin, end);
 
   // find the longest repo name; we'll use this for padding the text later
-  num maxRepoNameLength =
+  int maxRepoNameLength =
       repos.fold(0, (t, e) => max(t, e['full_name'].length));
 
-  for (num i = 0; i < repos.length; i++) {
+  for (int i = 0; i < repos.length; i++) {
     final repo = repos[i];
     print('${(i + 1).toString().padLeft(3)}  '
         '${repo['full_name'].padRight(maxRepoNameLength)} '
@@ -145,7 +145,7 @@ void printStarResults(List repos, {num begin = 0, num end = 100}) {
 
 Future<List> retrieveTopStarredRepos() async {
   var repos = List();
-  for (num i = 1; i <= 3; i++) {
+  for (int i = 1; i <= 3; i++) {
     var page = await retrieveStarsPage(i);
 
     repos.addAll(json.decode(page)['items']);
@@ -153,24 +153,25 @@ Future<List> retrieveTopStarredRepos() async {
   return repos;
 }
 
-Future<String> retrieveStarsPage(num pageNumber) async {
-  String page;
-  await http.get(
-      url +
-          '?q=stars%3A>10000&sort=stars&order=desc&per_page=100&page=' +
-          pageNumber.toString(),
-      headers: {
-        'User-Agent': userAgentHeader,
-        'Accept': acceptHeader
-      }).then((response) {
-    page = response.body;
-  }).catchError((error) {
+Future<String> retrieveStarsPage(int pageNumber) async {
+  http.Response response;
+
+  try {
+    response = await http.get(
+        url +
+            '?q=stars%3A>10000&sort=stars&order=desc&per_page=100&page=' +
+            pageNumber.toString(),
+        headers: {'User-Agent': userAgentHeader, 'Accept': acceptHeader});
+  } catch (error) {
     var socketException = error as SocketException;
-    print(
-        "Accessing the GitHub API failed with this errror:\n${socketException.osError}");
-    exit(1);
-  }, test: (error) => error is SocketException);
-  return page;
+    if (socketException != null) {
+      print(
+          "Accessing the GitHub API failed with this error:\n${socketException.osError}");
+      exit(1);
+    }
+  } finally {
+    return response.body;
+  }
 }
 
 List loadStarredReposFromCache() {
