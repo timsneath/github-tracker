@@ -58,6 +58,7 @@ final List contentRepos = [
   'kdn251/interviews',
   'minimaxir/big-list-of-naughty-strings',
   'k88hudson/git-flight-rules',
+  'Kickball/awesome-selfhosted'
 ];
 
 Future main(List<String> args) async {
@@ -146,19 +147,30 @@ Future<List> retrieveTopStarredRepos() async {
   var repos = List();
   for (num i = 1; i <= 3; i++) {
     var page = await retrieveStarsPage(i);
+
     repos.addAll(json.decode(page)['items']);
   }
   return repos;
 }
 
-Future<String> retrieveStarsPage(num page) async {
-  final response = await http.get(
+Future<String> retrieveStarsPage(num pageNumber) async {
+  String page;
+  await http.get(
       url +
           '?q=stars%3A>10000&sort=stars&order=desc&per_page=100&page=' +
-          page.toString(),
-      headers: {'User-Agent': userAgentHeader, 'Accept': acceptHeader});
-
-  return response.body;
+          pageNumber.toString(),
+      headers: {
+        'User-Agent': userAgentHeader,
+        'Accept': acceptHeader
+      }).then((response) {
+    page = response.body;
+  }).catchError((error) {
+    var socketException = error as SocketException;
+    print(
+        "Accessing the GitHub API failed with this errror:\n${socketException.osError}");
+    exit(1);
+  }, test: (error) => error is SocketException);
+  return page;
 }
 
 List loadStarredReposFromCache() {
