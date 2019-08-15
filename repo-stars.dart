@@ -58,7 +58,11 @@ final List contentRepos = [
   'kdn251/interviews',
   'minimaxir/big-list-of-naughty-strings',
   'k88hudson/git-flight-rules',
-  'Kickball/awesome-selfhosted'
+  'Kickball/awesome-selfhosted',
+  'jackfrued/Python-100-Days',
+  'public-apis/public-apis',
+  'scutan90/DeepLearning-500-questions',
+  'MisterBooo/LeetCodeAnimation'
 ];
 
 Future main(List<String> args) async {
