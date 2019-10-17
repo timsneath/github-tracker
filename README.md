@@ -56,15 +56,37 @@ hitting the GitHub rate limit, although you can refresh the cache by using the
 `--refresh` option, for example:
 
 ```bash
-dart repo-stars.dart --refresh
+$ dart repo-stars.dart --refresh
 ```
 
-By default, the command ignores archived and content-only repos.
+By default, the command excludes non-software repos (i.e. those which are primarily content). This includes https://github.com/freeCodeCamp/freeCodeCamp, https://github.com/EbookFoundation/free-programming-books,  https://github.com/kamranahmedse/developer-roadmap and others. This list is manually curated. 
+
+You can add content repos with the `--include-content-repos` switch. For example:
+
+```bash
+$ dart repo-stars.dart --include-content-repos | head -n 5
+  1  freeCodeCamp/freeCodeCamp                    296791
+  2  twbs/bootstrap                               129787
+  3  vuejs/vue                                    123900
+  4  facebook/react                               118973
+  5  tensorflow/tensorflow                        117898
+ ```
+
+If you'd prefer the data formatted as comma-separated-values, perhaps to append to a file to graph trends over time, you can use the `--csv-output` switch, which outputs the data in the following order: date,rank,repo,stars. For example:
+
+```bash
+$ dart repo-stars.dart --csv-output | head -n 5
+2019/10/17,1,vuejs/vue,150354
+2019/10/17,2,facebook/react,137883
+2019/10/17,3,twbs/bootstrap,136335
+2019/10/17,4,tensorflow/tensorflow,136068
+2019/10/17,5,robbyrussell/oh-my-zsh,96809
+```
 
 You can get further usage help by running:
 
 ```bash
-dart repo-stars.dart --help
+$ dart repo-stars.dart --help
 ```
 
 ## Known Issues
@@ -72,6 +94,3 @@ dart repo-stars.dart --help
 - The command uses a brute force of getting the top 300 repos with > 10,000
   stars and then filtering. We should get a count and grab the appropriate
   quantity of paginated content to fill the JSON cache as appropriate.
-
-- More options would be nice, e.g. `--csv` to generate output suitable for
-  importing into Microsoft Excel, Google Sheets etc.

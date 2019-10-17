@@ -16,6 +16,7 @@ ArgResults argResults;
 // hardcoded for now. wonder if we can derive this list by looking at repos
 // that are mostly Markdown or HTML?
 final List contentRepos = [
+  '996icu/996.ICU',
   'freeCodeCamp/freeCodeCamp',
   'EbookFoundation/free-programming-books',
   'sindresorhus/awesome',
@@ -42,6 +43,8 @@ final List contentRepos = [
   'thedaviddias/Front-End-Checklist',
   'Trinea/android-open-project',
   'donnemartin/system-design-primer',
+  'Snailclimb/JavaGuide',
+  'xingshaocheng/architect-awesome',
   'FreeCodeCampChina/freecodecamp.cn',
   'vinta/awesome-python',
   'avelino/awesome-go',
@@ -55,6 +58,11 @@ final List contentRepos = [
   'kdn251/interviews',
   'minimaxir/big-list-of-naughty-strings',
   'k88hudson/git-flight-rules',
+  'Kickball/awesome-selfhosted',
+  'jackfrued/Python-100-Days',
+  'public-apis/public-apis',
+  'scutan90/DeepLearning-500-questions',
+  'MisterBooo/LeetCodeAnimation'
 ];
 
 Future main(List<String> args) async {
@@ -76,6 +84,13 @@ Future main(List<String> args) async {
         negatable: true,
         help: 'Includes content-only repos in the ranked list of top repos.\n'
             'Default is to exclude them.')
+    ..addFlag('csv-output',
+        defaultsTo: false,
+        abbr: 'v',
+        negatable: true,
+        help: 'Outputs data in the following format: date,rank,repo,stars\n'
+            'Useful for appending to a CSV file for graphing trends.\n'
+            'Default is to export normally.')
     ..addFlag('help',
         defaultsTo: false,
         abbr: 'h',
@@ -116,7 +131,7 @@ bool cacheMissingOrInvalidated(String cachePath) {
   }
 }
 
-void printStarResults(List repos, {num begin = 0, num end = 100}) {
+void printStarResults(List repos, {int begin = 0, int end = 100}) {
   // filter archived and content-only repos
   if (!argResults['include-archived-repos']) {
     repos.removeWhere((c) => c['archived']);
@@ -127,35 +142,56 @@ void printStarResults(List repos, {num begin = 0, num end = 100}) {
 
   repos = repos.sublist(begin, end);
 
-  // find the longest repo name; we'll use this for padding the text later
-  num maxRepoNameLength =
-      repos.fold(0, (t, e) => max(t, e['full_name'].length));
+  if (!argResults['csv-output']) {
+    // find the longest repo name; we'll use this for padding the text later
+    int maxRepoNameLength =
+        repos.fold(0, (t, e) => max(t, e['full_name'].length));
 
-  for (num i = 0; i < repos.length; i++) {
-    final repo = repos[i];
-    print('${(i + 1).toString().padLeft(3)}  '
-        '${repo['full_name'].padRight(maxRepoNameLength)} '
-        '${repo['stargazers_count'].toString().padLeft(6)}');
+    for (int i = 0; i < repos.length; i++) {
+      final repo = repos[i];
+      print('${(i + 1).toString().padLeft(3)}  '
+          '${repo['full_name'].padRight(maxRepoNameLength)} '
+          '${repo['stargazers_count'].toString().padLeft(6)}');
+    }
+  } else {
+    var today = DateTime.now();
+    var date = '${today.year}/${today.month}/${today.day}';
+    for (int i = 0; i < repos.length; i++) {
+      final repo = repos[i];
+      print('$date,${i + 1},${repo['full_name']},${repo['stargazers_count']}');
+    }
   }
 }
 
 Future<List> retrieveTopStarredRepos() async {
   var repos = List();
-  for (num i = 1; i <= 3; i++) {
+  for (int i = 1; i <= 3; i++) {
     var page = await retrieveStarsPage(i);
+
     repos.addAll(json.decode(page)['items']);
   }
   return repos;
 }
 
-Future<String> retrieveStarsPage(num page) async {
-  final response = await http.get(
-      url +
-          '?q=stars%3A>10000&sort=stars&order=desc&per_page=100&page=' +
-          page.toString(),
-      headers: {'User-Agent': userAgentHeader, 'Accept': acceptHeader});
+Future<String> retrieveStarsPage(int pageNumber) async {
+  http.Response response;
 
-  return response.body;
+  try {
+    response = await http.get(
+        url +
+            '?q=stars%3A>10000&sort=stars&order=desc&per_page=100&page=' +
+            pageNumber.toString(),
+        headers: {'User-Agent': userAgentHeader, 'Accept': acceptHeader});
+  } catch (error) {
+    var socketException = error as SocketException;
+    if (socketException != null) {
+      print(
+          "Accessing the GitHub API failed with this error:\n${socketException.osError}");
+      exit(1);
+    }
+  } finally {
+    return response.body;
+  }
 }
 
 List loadStarredReposFromCache() {
