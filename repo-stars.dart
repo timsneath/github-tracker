@@ -155,7 +155,7 @@ void printStarResults(List repos, {int begin = 0, int end = 100}) {
     }
   } else {
     var today = DateTime.now();
-    var date = '${today.year}/${today.month}/${today.day}';
+    var date = '${today.year}/${today.month}/${today.day} ${today.hour}:${today.minute}:${today.second}';
     for (int i = 0; i < repos.length; i++) {
       final repo = repos[i];
       print('$date,${i + 1},${repo['full_name']},${repo['stargazers_count']}');
