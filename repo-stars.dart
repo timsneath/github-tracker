@@ -5,7 +5,7 @@ import 'dart:math';
 
 import 'package:args/args.dart';
 import 'package:http/http.dart' as http;
-
+import 'package:intl/intl.dart';
 const url = 'https://api.github.com/search/repositories';
 const acceptHeader = 'application/vnd.github.v3+json';
 const userAgentHeader = 'github-startracker';
@@ -155,7 +155,8 @@ void printStarResults(List repos, {int begin = 0, int end = 100}) {
     }
   } else {
     var today = DateTime.now();
-    var date = '${today.year}/${today.month}/${today.day} ${today.hour}:${today.minute}:${today.second}';
+    var formatter = new DateFormat('yyyy/MM/dd HH:MM:SS');
+    var date = formatter.format(today);
     for (int i = 0; i < repos.length; i++) {
       final repo = repos[i];
       print('$date,${i + 1},${repo['full_name']},${repo['stargazers_count']}');
