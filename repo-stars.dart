@@ -155,7 +155,7 @@ void printStarResults(List repos, {int begin = 0, int end = 100}) {
     }
   } else {
     var today = DateTime.now();
-    var formatter = new DateFormat('yyyy/MM/dd HH:MM:SS');
+    var formatter = new DateFormat('yyyy/MM/dd HH:MM:ss');
     var date = formatter.format(today);
     for (int i = 0; i < repos.length; i++) {
       final repo = repos[i];
