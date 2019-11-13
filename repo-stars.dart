@@ -6,64 +6,10 @@ import 'dart:math';
 import 'package:args/args.dart';
 import 'package:http/http.dart' as http;
 
-const url = 'https://api.github.com/search/repositories';
-const acceptHeader = 'application/vnd.github.v3+json';
-const userAgentHeader = 'github-startracker';
-const cachePath = 'cache.json';
+import 'content-repos.dart';
+import 'global.dart';
 
 ArgResults argResults;
-
-// hardcoded for now. wonder if we can derive this list by looking at repos
-// that are mostly Markdown or HTML?
-final List contentRepos = [
-  '996icu/996.ICU',
-  'freeCodeCamp/freeCodeCamp',
-  'EbookFoundation/free-programming-books',
-  'sindresorhus/awesome',
-  'getify/You-Dont-Know-JS',
-  'airbnb/javascript',
-  'github/gitignore',
-  'jwasham/coding-interview-university',
-  'kamranahmedse/developer-roadmap',
-  'h5bp/html5-boilerplate',
-  'toddmotto/public-apis',
-  'resume/resume.github.com',
-  'nvbn/thefuck',
-  'h5bp/Front-end-Developer-Interview-Questions',
-  'jlevy/the-art-of-command-line',
-  'google/material-design-icons',
-  'mtdvio/every-programmer-should-know',
-  'justjavac/free-programming-books-zh_CN',
-  'vuejs/awesome-vue',
-  'josephmisiti/awesome-machine-learning',
-  'ossu/computer-science',
-  'NARKOZ/hacker-scripts',
-  'papers-we-love/papers-we-love',
-  'danistefanovic/build-your-own-x',
-  'thedaviddias/Front-End-Checklist',
-  'Trinea/android-open-project',
-  'donnemartin/system-design-primer',
-  'Snailclimb/JavaGuide',
-  'xingshaocheng/architect-awesome',
-  'FreeCodeCampChina/freecodecamp.cn',
-  'vinta/awesome-python',
-  'avelino/awesome-go',
-  'wasabeef/awesome-android-ui',
-  'vsouza/awesome-ios',
-  'enaqx/awesome-react',
-  'awesomedata/awesome-public-datasets',
-  'tiimgreen/github-cheat-sheet',
-  'CyC2018/Interview-Notebook',
-  'CyC2018/CS-Notes',
-  'kdn251/interviews',
-  'minimaxir/big-list-of-naughty-strings',
-  'k88hudson/git-flight-rules',
-  'Kickball/awesome-selfhosted',
-  'jackfrued/Python-100-Days',
-  'public-apis/public-apis',
-  'scutan90/DeepLearning-500-questions',
-  'MisterBooo/LeetCodeAnimation'
-];
 
 Future main(List<String> args) async {
   final parser = ArgParser()
