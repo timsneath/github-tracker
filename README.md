@@ -2,16 +2,16 @@
 
 [![Build Status](https://travis-ci.org/timsneath/github-tracker.svg?branch=master)](https://travis-ci.org/timsneath/github-tracker)
 
-Grabs useful information from GitHub. At present, this only has one command
-available (but I'll probably add more over time).
+Grabs useful information from GitHub. 
 
-| Command    | Description                                         |
-|------------|-----------------------------------------------------|
-| repo-stars | Provides an ordered list of the top repos on GitHub |
+| Command     | Description                                         |
+|-------------|-----------------------------------------------------|
+| repo-stars  | Provides an ordered list of the top repos on GitHub |
+| repo-issues | Provides an ordered list of repos by issues         |
 
 ## Usage
 
-Make sure you have the Dart SDK installed (<https://dartlang.org>).
+Make sure you have the Dart SDK installed (<https://dart.dev>).
 
 Also make sure to grab the dependencies first:
 
@@ -86,3 +86,6 @@ $ dart repo-stars.dart --help
 
 - More options would be nice, e.g. `--csv` to generate output suitable for
   importing into Microsoft Excel, Google Sheets etc.
+  
+- `repo-issues.dart` is a very rough script at the moment. I need to tidy up
+  and refactor both of these two commands. 
