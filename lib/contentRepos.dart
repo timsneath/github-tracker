@@ -1,6 +1,13 @@
-// hardcoded for now. wonder if we can derive this list by looking at repos
-// that are mostly Markdown or HTML?
-final List contentRepos = [
+// Hardcoded list of content-only repos. This is a manually curated list; the
+// criteria is repos that either contain no code (e.g. study plans, lists)
+// or where the code is incidental to the repo (e.g. a tutorial). The
+// expectation is that repos not in this list primarily exist for the purpose
+// of disseminating and collaborating on source code.
+//
+// Since this is a manually-curated list, there is *always* the possibility of
+// error. Please feel free to file an issue or a pull request if you see
+// something in the wrong category.
+const List contentRepos = [
   '996icu/996.ICU',
   'freeCodeCamp/freeCodeCamp',
   'EbookFoundation/free-programming-books',

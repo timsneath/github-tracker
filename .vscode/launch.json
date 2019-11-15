@@ -6,10 +6,7 @@
     "configurations": [
         {
             "name": "Dart",
-            "program": "repo-stars.dart",
-            "args": [
-                // "-r" // Uncomment this line if you want to force a refresh
-            ],
+            "program": "lib/github.dart",
             "request": "launch",
             "type": "dart"
         }
