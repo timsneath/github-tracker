@@ -20,34 +20,27 @@ $ cd path/to/github-tracker
 $ pub get
 ```
 
-The following command gives an ordered list of the top 100 repos on GitHub:
+You can get help on the available commands by running:
 
 ```bash
-$ dart repo-stars.dart
-  1  twbs/bootstrap                     125174
-  2  tensorflow/tensorflow              102100
-  3  facebook/react                      97742
-  4  vuejs/vue                           96932
-  5  d3/d3                               76338
-  6  robbyrussell/oh-my-zsh              71507
-  7  facebook/react-native               64757
-  8  electron/electron                   61007
-  9  torvalds/linux                      59445
- 10  angular/angular.js                  58579
- 11  FortAwesome/Font-Awesome            56580
- 12  Microsoft/vscode                    52300
- ...
- 90  google/protobuf                     26632
- 91  gohugoio/hugo                       26193
- 92  zeit/next.js                        26051
- 93  flutter/flutter                     26050
- 94  TryGhost/Ghost                      25882
- 95  gogs/gogs                           25514
- 96  spring-projects/spring-boot         25382
- 97  shadowsocks/shadowsocks             25283
- 98  opencv/opencv                       25260
- 99  discourse/discourse                 25204
-100  prettier/prettier                   25041
+$ dart <command>.dart --help
+```
+
+The following command gives an ordered list of the top 10 repos on GitHub:
+
+```bash
+$ dart repo-stars.dart -n 10
+  #  Repository                             Stars
+  1  vuejs/vue                             152178
+  2  facebook/react                        139422
+  3  tensorflow/tensorflow                 137333
+  4  twbs/bootstrap                        136832
+  5  robbyrussell/oh-my-zsh                 98642
+  6  d3/d3                                  88548
+  7  microsoft/vscode                       86616
+  8  torvalds/linux                         82719
+  9  facebook/react-native                  82602
+ 10  flutter/flutter                        79222
 ```
 
 The command above also stores more detailed output from GitHub in a file
@@ -64,18 +57,24 @@ By default, the command excludes non-software repos (i.e. those which are primar
 You can add content repos with the `--include-content-repos` switch. For example:
 
 ```bash
-$ dart repo-stars.dart --include-content-repos | head -n 5
-  1  freeCodeCamp/freeCodeCamp                    296791
-  2  twbs/bootstrap                               129787
-  3  vuejs/vue                                    123900
-  4  facebook/react                               118973
-  5  tensorflow/tensorflow                        117898
+$ dart repo-stars.dart --include-content-repos -n 5
+  #  Repository                                    Stars
+  1  freeCodeCamp/freeCodeCamp                    306229
+  2  996icu/996.ICU                               247778
+  3  vuejs/vue                                    152178
+  4  facebook/react                               139422
+  5  tensorflow/tensorflow                        137333
  ```
  
-You can get further usage help by running:
+If you'd prefer the data formatted as comma-separated-values, perhaps to append to a file to graph trends over time, you can use the `--csv-output` switch, which outputs the data in the following order: date,rank,repo,stars. For example:
 
 ```bash
-$ dart repo-stars.dart --help
+$ dart repo-stars.dart --csv-output -n 5
+2019/11/14 20:11:31,1,vuejs/vue,152178
+2019/11/14 20:11:31,2,facebook/react,139422
+2019/11/14 20:11:31,3,tensorflow/tensorflow,137333
+2019/11/14 20:11:31,4,twbs/bootstrap,136832
+2019/11/14 20:11:31,5,robbyrussell/oh-my-zsh,98642
 ```
 
 ## Known Issues
@@ -83,9 +82,3 @@ $ dart repo-stars.dart --help
 - The command uses a brute force of getting the top 300 repos with > 10,000
   stars and then filtering. We should get a count and grab the appropriate
   quantity of paginated content to fill the JSON cache as appropriate.
-
-- More options would be nice, e.g. `--csv` to generate output suitable for
-  importing into Microsoft Excel, Google Sheets etc.
-  
-- `repo-issues.dart` is a very rough script at the moment. I need to tidy up
-  and refactor both of these two commands. 
