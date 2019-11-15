@@ -52,9 +52,14 @@ hitting the GitHub rate limit, although you can refresh the cache by using the
 $ dart repo-stars.dart --refresh
 ```
 
-By default, the command excludes non-software repos (i.e. those which are primarily content). This includes https://github.com/freeCodeCamp/freeCodeCamp, https://github.com/EbookFoundation/free-programming-books,  https://github.com/kamranahmedse/developer-roadmap and others. This list is manually curated. 
+By default, the command excludes non-software repos (i.e. those which are
+primarily content). This includes https://github.com/freeCodeCamp/freeCodeCamp,
+https://github.com/EbookFoundation/free-programming-books,
+https://github.com/kamranahmedse/developer-roadmap and others. This list is
+manually curated. 
 
-You can add content repos with the `--include-content-repos` switch. For example:
+You can add content repos with the `--include-content-repos` switch. For
+example:
 
 ```bash
 $ dart repo-stars.dart --include-content-repos -n 5
@@ -66,7 +71,8 @@ $ dart repo-stars.dart --include-content-repos -n 5
   5  tensorflow/tensorflow                        137333
  ```
  
-If you'd prefer the data formatted as comma-separated-values, perhaps to append to a file to graph trends over time, you can use the `--csv-output` switch, which outputs the data in the following order: date,rank,repo,stars. For example:
+If you'd prefer the data formatted as comma-separated-values, perhaps to append
+to a file to graph trends over time, you can use the `--csv-output` switch:
 
 ```bash
 $ dart repo-stars.dart --csv-output -n 5
