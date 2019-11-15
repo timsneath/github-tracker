@@ -1,5 +1,6 @@
 name: github_tracker
 
 dependencies:
-  args: ^1.4.3
+  args: ^1.5.2
   http: ^0.12.0
+  intl: ^0.16.0
