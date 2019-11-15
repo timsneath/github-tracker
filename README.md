@@ -83,11 +83,15 @@ $ dart repo-stars.dart --csv-output -n 5
 2019/11/14 20:11:31,5,robbyrussell/oh-my-zsh,98642
 ```
 
-## Known Issues
+## Known Issues / Roadmap
 
 - The command uses a brute force of getting the top 300 repos with > 10,000
   stars and then filtering. We should get a count and grab the appropriate
   quantity of paginated content to fill the JSON cache as appropriate.
+
+- Now that the GitHub API stuff is refactored out from the command line code,
+  it might be worth adding more metadata and turning that into a separate
+  package on [pub.dev](https://pub.dev).
 
 ## Acknowledgements
 
