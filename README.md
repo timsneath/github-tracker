@@ -88,3 +88,8 @@ $ dart repo-stars.dart --csv-output -n 5
 - The command uses a brute force of getting the top 300 repos with > 10,000
   stars and then filtering. We should get a count and grab the appropriate
   quantity of paginated content to fill the JSON cache as appropriate.
+
+## Acknowledgements
+
+Thanks to [@csells](https://github.com/csells) and
+[@kf6gpe](https://github.com/kf6gpe) for contributions.
