@@ -54,5 +54,8 @@ const List contentRepos = [
   'jackfrued/Python-100-Days',
   'public-apis/public-apis',
   'scutan90/DeepLearning-500-questions',
-  'MisterBooo/LeetCodeAnimation'
+  'MisterBooo/LeetCodeAnimation',
+  'awesome-selfhosted/awesome-selfhosted',
+  'yangshun/tech-interview-handbook',
+  'goldbergyoni/nodebestpractices'
 ];
