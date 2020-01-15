@@ -131,7 +131,7 @@ bool cacheMissingOrInvalidated(String cachePath) {
   }
 }
 
-void printStarResults(List repos, {int begin = 0, int end = 100}) {
+void printStarResults(List repos, {int begin = 0, int end = 50}) {
   // filter archived and content-only repos
   if (!argResults['include-archived-repos']) {
     repos.removeWhere((c) => c['archived']);
