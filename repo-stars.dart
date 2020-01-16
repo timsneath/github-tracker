@@ -12,7 +12,7 @@ import 'lib/repoInfo.dart';
 ArgResults argResults;
 
 Future main(List<String> args) async {
-  final parser = globalParser
+  final parser = repoParser
     ..addFlag('csv-output',
         defaultsTo: false,
         abbr: 'v',
