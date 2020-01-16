@@ -1,12 +1,7 @@
 import 'package:args/args.dart';
 
 // Global parser options
-final globalParser = ArgParser()
-  ..addFlag('help',
-      defaultsTo: false,
-      abbr: 'h',
-      negatable: false,
-      help: 'Displays this usage info.')
+final repoParser = ArgParser()
   ..addFlag('refresh',
       defaultsTo: false,
       abbr: 'r',
@@ -37,3 +32,20 @@ final globalParser = ArgParser()
           'may be lower because of GitHub API limitations.',
       valueHelp: 'number',
       defaultsTo: '100');
+
+final issueParser = ArgParser()
+  ..addFlag('help',
+      defaultsTo: false,
+      abbr: 'h',
+      negatable: false,
+      help: 'Displays this usage info.')
+  ..addOption(
+    'query',
+    abbr: 'q',
+    help: 'URI-encoded string to filter the overall list of issues (e.g. '
+        'is%3Aopen)',
+  )
+  ..addOption('repo',
+      abbr: 'r',
+      help: 'The repo to be searched (e.g. '
+          'flutter/flutter)');

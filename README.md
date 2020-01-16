@@ -4,10 +4,11 @@
 
 Grabs useful information from GitHub. 
 
-| Command     | Description                                         |
-|-------------|-----------------------------------------------------|
-| repo-stars  | Provides an ordered list of the top repos on GitHub |
-| repo-issues | Provides an ordered list of repos by issues         |
+| Command      | Description                                         |
+|--------------|-----------------------------------------------------|
+| repo-stars   | Provides an ordered list of the top repos on GitHub |
+| repo-issues  | Provides an ordered list of repos by issues         |
+| count-issues | Counts the number of issues matching a query        |
 
 ## Usage
 
@@ -25,6 +26,15 @@ You can get help on the available commands by running:
 ```bash
 $ dart <command>.dart --help
 ```
+
+Optionally, you can compile each command to native code by running, for
+instance:
+
+```bash
+$ dart2native repo-stars.dart -o repo-stars
+```
+
+### repo-stars
 
 The following command gives an ordered list of the top 10 repos on GitHub:
 
@@ -83,11 +93,22 @@ $ dart repo-stars.dart --csv-output -n 5
 2019/11/14 20:11:31,5,robbyrussell/oh-my-zsh,98642
 ```
 
+### count-issues
+
+`count-issues` returns the count of the number of issues given a repository
+and Github query at the current time in a comma-delimited format. For example:
+
+```bash
+$ dart count-issues.dart --repo 'flutter/flutter' \
+--query 'is%3Aopen+is%3Aissue+label%3Aframework'
+2020/01/15 12:01:06,3124
+```
+
 ## Known Issues / Roadmap
 
-- The command uses a brute force of getting the top 300 repos with > 10,000
-  stars and then filtering. We should get a count and grab the appropriate
-  quantity of paginated content to fill the JSON cache as appropriate.
+- The repo-orientated commands use a brute force of getting the top 300 repos
+  with > 10,000 stars and then filtering. We should get a count and grab the
+  quantity of paginated content to fill the JSON cache as needed.
 
 - Now that the GitHub API stuff is refactored out from the command line code,
   it might be worth adding more metadata and turning that into a separate

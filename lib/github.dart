@@ -5,13 +5,30 @@ import 'package:http/http.dart' as http;
 
 import 'repoInfo.dart';
 
-const url = 'https://api.github.com/search/repositories';
+const url = 'https://api.github.com/search/';
 const acceptHeader = 'application/vnd.github.v3+json';
 const userAgentHeader = 'github-startracker';
 const cachePath = 'cache.json';
 
 class GitHub {
   var repos = List<RepoInfo>();
+
+  /// Retrieve metadata about the number of issues, given a specific repo and
+  /// query string.
+  Future<int> retrieveIssuesCount(String query, String repo) async {
+    http.Response response;
+
+    try {
+      response = await http.get(url + 'issues?q=repo%3A$repo+$query',
+          headers: {'User-Agent': userAgentHeader, 'Accept': acceptHeader});
+    } on SocketException catch (socketException) {
+      print(
+          "Accessing the GitHub API failed with this error:\n  ${socketException.osError}");
+      exit(1);
+    } finally {
+      return json.decode(response.body)['total_count'];
+    }
+  }
 
   /// Retrieves metadata about the top _n_ repos from GitHub.
   ///
@@ -40,7 +57,7 @@ class GitHub {
     try {
       response = await http.get(
           url +
-              '?q=stars%3A>10000&sort=stars&order=desc&per_page=100&page=' +
+              'repositories?q=stars%3A>10000&sort=stars&order=desc&per_page=100&page=' +
               pageNumber.toString(),
           headers: {'User-Agent': userAgentHeader, 'Accept': acceptHeader});
     } on SocketException catch (socketException) {
