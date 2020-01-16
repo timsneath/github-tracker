@@ -63,9 +63,11 @@ $ dart repo-stars.dart --refresh
 ```
 
 By default, the command excludes non-software repos (i.e. those which are
-primarily content). This includes https://github.com/freeCodeCamp/freeCodeCamp,
-https://github.com/EbookFoundation/free-programming-books,
-https://github.com/kamranahmedse/developer-roadmap and others. This list is
+primarily content). This includes
+[freeCodeCamp/freeCodeCamp](https://github.com/freeCodeCamp/freeCodeCamp),
+[EbookFoundation/free-programming-books](https://github.com/EbookFoundation/free-programming-books),
+[kamranahmedse/developer-roadmap](https://github.com/kamranahmedse/developer-roadmap)
+and others. This list is
 manually curated. 
 
 You can add content repos with the `--include-content-repos` switch. For
