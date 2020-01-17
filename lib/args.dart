@@ -2,6 +2,11 @@ import 'package:args/args.dart';
 
 // Global parser options
 final repoParser = ArgParser()
+  ..addFlag('help',
+      defaultsTo: false,
+      abbr: 'h',
+      negatable: false,
+      help: 'Displays this usage info.')
   ..addFlag('refresh',
       defaultsTo: false,
       abbr: 'r',
