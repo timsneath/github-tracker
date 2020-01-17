@@ -36,7 +36,7 @@ Future main(List<String> args) async {
   int count = await gh.retrieveIssuesCount(url, repo);
 
   final today = DateTime.now();
-  final formatter = new DateFormat('yyyy/MM/dd HH:MM:ss');
+  final formatter = new DateFormat('yyyy/MM/dd HH:mm:ss');
   final date = formatter.format(today);
   print('${date}, ${count}');
 }

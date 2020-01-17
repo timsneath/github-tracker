@@ -73,7 +73,7 @@ void printStarResults(List<RepoInfo> repos, {int begin = 0, int end = 100}) {
     }
   } else {
     final today = DateTime.now();
-    final formatter = DateFormat('yyyy/MM/dd HH:MM:ss');
+    final formatter = DateFormat('yyyy/MM/dd HH:mm:ss');
     final date = formatter.format(today);
     for (int i = 0; i < min(repos.length, maxResults); i++) {
       final repo = repos[i];
