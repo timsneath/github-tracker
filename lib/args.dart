@@ -7,11 +7,6 @@ final repoParser = ArgParser()
       abbr: 'h',
       negatable: false,
       help: 'Displays this usage info.')
-  ..addFlag('refresh',
-      defaultsTo: false,
-      abbr: 'r',
-      help: 'Refresh data with API call to GitHub.\nBy default, a cache file '
-          'is used if it exists.')
   ..addFlag('include-archived-repos',
       defaultsTo: false,
       abbr: 'a',
@@ -44,11 +39,11 @@ final issueParser = ArgParser()
       abbr: 'h',
       negatable: false,
       help: 'Displays this usage info.')
-  ..addOption(
-    'query',
-    abbr: 'q',
-    help: 'URI-encoded string to filter the overall list of issues (e.g. '
-        'is%3Aopen)',
+  ..addMultiOption(
+    'filter',
+    abbr: 'f',
+    help: 'One or more filters that can be applied to narrow down the issues.',
+    splitCommas: true,
   )
   ..addOption('repo',
       abbr: 'r',
