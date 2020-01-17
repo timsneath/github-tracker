@@ -92,9 +92,9 @@ $ dart repo-stars.dart --csv-output -n 5
 and Github query at the current time in a comma-delimited format. For example:
 
 ```bash
-$ dart count-issues.dart --repo 'flutter/flutter' \
---query 'is%3Aopen+is%3Aissue+label%3Aframework'
-2020/01/15 12:01:06,3124
+$ dart count-issues.dart --repo flutter/flutter' \
+--filter is:open,is:issue,label:framework
+2020/01/16 22:51:01,3223
 ```
 
 ## Acknowledgements
