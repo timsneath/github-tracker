@@ -1,3 +1,6 @@
+import 'dart:async';
+import 'dart:convert';
+
 import 'package:github/github.dart';
 import 'package:intl/intl.dart';
 
@@ -28,14 +31,27 @@ Future<void> main(List<String> args) async {
   final repoName = argResults['repo'];
   final filters = argResults['filter'];
 
-  final gitHub = GitHub();
-
   final fullQuery = 'repo:$repoName ${filters.join(" ")}';
-  final issues = gitHub.search.issues(fullQuery);
-  final issueCount = await issues.length;
+  final count = await issueCount(fullQuery);
 
   final date = DateFormat('yyyy/MM/dd HH:mm:ss').format(DateTime.now());
-  print('$date, $issueCount');
+  print('$date, $count');
+}
+
+/// This method seems to be missing right now from package:github
+Future<int> issueCount(String query) async {
+  final gitHub = GitHub();
+  final params = <String, dynamic>{'q': query};
+  var count = 0;
+
+  var response = await gitHub.request('GET', '/search/issues', params: params);
+  if (response.statusCode == 403 && response.body.contains('rate limit')) {
+    throw RateLimitHit(gitHub);
+  }
+
+  final input = jsonDecode(response.body);
+  count = input['total_count'] ?? 0;
 
   gitHub.dispose();
+  return count;
 }

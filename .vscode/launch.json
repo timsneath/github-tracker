@@ -9,7 +9,8 @@
             "program": "count-issues.dart",
             "request": "launch",
             "type": "dart",
-            "args": ["--filter is:open,is:issue,label:\"a: annoyance\",-label:plugin"]
+            "args": ["--filter=is:open,is:issue,label:framework",
+            "--repo=flutter/flutter"]
         }
     ]
 }
