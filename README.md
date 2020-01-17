@@ -53,15 +53,6 @@ $ dart repo-stars.dart -n 10
  10  flutter/flutter                        79222
 ```
 
-The command above also stores more detailed output from GitHub in a file
-`cache.json`. Repeated invocations over the command use the cache to minimize
-hitting the GitHub rate limit, although you can refresh the cache by using the
-`--refresh` option, for example:
-
-```bash
-$ dart repo-stars.dart --refresh
-```
-
 By default, the command excludes non-software repos (i.e. those which are
 primarily content). This includes
 [freeCodeCamp/freeCodeCamp](https://github.com/freeCodeCamp/freeCodeCamp),
@@ -106,17 +97,10 @@ $ dart count-issues.dart --repo 'flutter/flutter' \
 2020/01/15 12:01:06,3124
 ```
 
-## Known Issues / Roadmap
-
-- The repo-orientated commands use a brute force of getting the top 300 repos
-  with > 10,000 stars and then filtering. We should get a count and grab the
-  quantity of paginated content to fill the JSON cache as needed.
-
-- Now that the GitHub API stuff is refactored out from the command line code,
-  it might be worth adding more metadata and turning that into a separate
-  package on [pub.dev](https://pub.dev).
-
 ## Acknowledgements
 
 Thanks to [@csells](https://github.com/csells) and
-[@kf6gpe](https://github.com/kf6gpe) for contributions.
+[@kf6gpe](https://github.com/kf6gpe) for contributions. And thanks to
+the amazing team of contributors behind the 
+[github](https://pub.dev/packages/github) package, who saved me
+a ton of work. 
