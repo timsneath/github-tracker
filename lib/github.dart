@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:http/http.dart' as http;
+import 'package:github/github.dart';
 
 import 'repoInfo.dart';
 
@@ -10,24 +11,42 @@ const acceptHeader = 'application/vnd.github.v3+json';
 const userAgentHeader = 'github-startracker';
 const cachePath = 'cache.json';
 
-class GitHub {
+class GitHubService {
   var repos = List<RepoInfo>();
 
   /// Retrieve metadata about the number of issues, given a specific repo and
   /// query string.
-  Future<int> retrieveIssuesCount(String query, String repo) async {
-    http.Response response;
+  Future<int> retrieveIssuesCount(String query, String repoName) async {
+    var github = GitHub();
+    var search = SearchService(github);
+    var fixedQuery =
+        'is%3Aopen+is%3Aissue+-label%3Aframework+-label%3Aengine+-label%3Atool+-label%3Aplugin+-label%3Apackage+-label%3A%22will+need+additional+triage%22+-label%3A%22%E2%98%B8+platform-web%22+-label%3A%22a%3A+desktop%22+-label%3A%22team%3A+infra%22+-label%3A%22a%3A+existing-apps%22+sort%3Aupdated-asc+-label%3A%22waiting+for+customer+response%22+';
+    // 'q=repo%3Aflutter/flutter+is%3Aopen+is%3Aissue+label%3Aproposal';
 
-    try {
-      response = await http.get(url + 'issues?q=repo%3A$repo+$query',
-          headers: {'User-Agent': userAgentHeader, 'Accept': acceptHeader});
-    } on SocketException catch (socketException) {
-      print(
-          "Accessing the GitHub API failed with this error:\n  ${socketException.osError}");
-      exit(1);
-    } finally {
-      return json.decode(response.body)['total_count'];
-    }
+    // print('q=repo%3A$repoName+$query');
+    final issueStream = await search.issues(fixedQuery);
+    return issueStream.length;
+    // int count = 0;
+    // await for (var issue in issueStream) {
+    //   print(issue.title);
+    //   count++;
+    // }
+    // return count;
+
+    // github.activity.listStargazers(RepositorySlug.full(repo));
+
+    // http.Response response;
+
+    // try {
+    //   response = await http.get(url + 'issues?q=repo%3A$repo+$query',
+    //       headers: {'User-Agent': userAgentHeader, 'Accept': acceptHeader});
+    // } on SocketException catch (socketException) {
+    //   print(
+    //       "Accessing the GitHub API failed with this error:\n  ${socketException.osError}");
+    //   exit(1);
+    // } finally {
+    //   return json.decode(response.body)['total_count'];
+    // }
   }
 
   /// Retrieves metadata about the top _n_ repos from GitHub.
@@ -109,8 +128,7 @@ class GitHub {
 }
 
 main(List<String> args) async {
-  final gh = GitHub();
-  await gh.retrieveRepos(20);
-  print(gh.repos.length);
-  print(gh.repos[0]);
+  final gh = GitHubService();
+  final count = await gh.retrieveIssuesCount('', '');
+  print(count);
 }

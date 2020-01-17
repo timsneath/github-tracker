@@ -4,3 +4,4 @@ dependencies:
   args: ^1.5.2
   http: ^0.12.0
   intl: ^0.16.0
+  github: ^6.0.3

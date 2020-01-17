@@ -31,7 +31,7 @@ Future main(List<String> args) async {
     return;
   }
 
-  final gh = GitHub();
+  final gh = GitHubService();
   if (argResults['refresh'] || gh.isCacheMissingOrInvalidated) {
     await gh.retrieveRepos(300);
   } else {
