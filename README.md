@@ -2,7 +2,7 @@
 
 [![Build Status](https://travis-ci.org/timsneath/github-tracker.svg?branch=master)](https://travis-ci.org/timsneath/github-tracker)
 
-Grabs useful information from GitHub. 
+Grabs useful information from GitHub.
 
 | Command      | Description                                         |
 |--------------|-----------------------------------------------------|
@@ -17,21 +17,21 @@ Make sure you have the Dart SDK installed (<https://dart.dev>).
 Also make sure to grab the dependencies first:
 
 ```bash
-$ cd path/to/github-tracker
-$ pub get
+cd path/to/github-tracker
+pub get
 ```
 
 You can get help on the available commands by running:
 
 ```bash
-$ dart <command>.dart --help
+dart <command>.dart --help
 ```
 
 Optionally, you can compile each command to native code by running, for
 instance:
 
 ```bash
-$ dart2native repo-stars.dart -o repo-stars
+dart2native repo-stars.dart -o repo-stars
 ```
 
 ### repo-stars
@@ -59,7 +59,7 @@ primarily content). This includes
 [EbookFoundation/free-programming-books](https://github.com/EbookFoundation/free-programming-books),
 [kamranahmedse/developer-roadmap](https://github.com/kamranahmedse/developer-roadmap)
 and others. This list is
-manually curated. 
+manually curated.
 
 You can add content repos with the `--include-content-repos` switch. For
 example:
@@ -73,7 +73,7 @@ $ dart repo-stars.dart --include-content-repos -n 5
   4  facebook/react                               139422
   5  tensorflow/tensorflow                        137333
  ```
- 
+
 If you'd prefer the data formatted as comma-separated-values, perhaps to append
 to a file to graph trends over time, you can use the `--csv-output` switch:
 
@@ -100,6 +100,6 @@ $ dart count-issues.dart --repo flutter/flutter --filter is:open,is:issue,label:
 
 Thanks to [@csells](https://github.com/csells) and
 [@kf6gpe](https://github.com/kf6gpe) for contributions. And thanks to
-the amazing team of contributors behind the 
+the amazing team of contributors behind the
 [github](https://pub.dev/packages/github) package, who saved me
-a ton of work. 
+a ton of work.
