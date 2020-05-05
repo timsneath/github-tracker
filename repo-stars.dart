@@ -30,7 +30,7 @@ Future main(List<String> args) async {
   }
 
   var maxResults = int.tryParse(argResults['results']);
-  maxResults ??= 100;
+  maxResults ??= 30;
 
   final gitHub = GitHub();
   final query = 'stars:>10000';

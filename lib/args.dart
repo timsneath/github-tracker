@@ -31,7 +31,7 @@ final repoParser = ArgParser()
           'Maximum number of results to return. The actual number of\nresults '
           'may be lower because of GitHub API limitations.',
       valueHelp: 'number',
-      defaultsTo: '100');
+      defaultsTo: '30');
 
 final issueParser = ArgParser()
   ..addFlag('help',
