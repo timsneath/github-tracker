@@ -58,5 +58,8 @@ const List contentRepos = [
   'awesome-selfhosted/awesome-selfhosted',
   'yangshun/tech-interview-handbook',
   'goldbergyoni/nodebestpractices',
-  'jaywcjlove/awesome-mac'
+  'jaywcjlove/awesome-mac',
+  'labuladong/fucking-algorithm',
+  'aymericdamien/TensorFlow-Examples',
+  'Hack-with-Github/Awesome-Hacking'
 ];
