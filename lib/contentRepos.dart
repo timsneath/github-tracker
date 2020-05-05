@@ -57,5 +57,6 @@ const List contentRepos = [
   'MisterBooo/LeetCodeAnimation',
   'awesome-selfhosted/awesome-selfhosted',
   'yangshun/tech-interview-handbook',
-  'goldbergyoni/nodebestpractices'
+  'goldbergyoni/nodebestpractices',
+  'jaywcjlove/awesome-mac'
 ];
