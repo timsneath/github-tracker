@@ -19,7 +19,7 @@ import 'lib/args.dart';
 /// (Note the escaping of the quote and space in UNIX-style shell environments.)
 Future<void> main(List<String> args) async {
   final argResults = issueParser.parse(args);
-  if (argResults['help']) {
+  if (argResults['help'] == true) {
     print('Prints the number of responses available for the given Github label '
         'query.\n\n'
         'Usage: dart count-issues.dart [options]\n\n'
@@ -28,8 +28,8 @@ Future<void> main(List<String> args) async {
     return;
   }
 
-  final repoName = argResults['repo'];
-  final filters = argResults['filter'];
+  final repoName = argResults['repo'].toString();
+  final List<String> filters = argResults['filter'];
 
   final fullQuery = 'repo:$repoName ${filters.join(" ")}';
   final count = await issueCount(fullQuery);
@@ -44,12 +44,13 @@ Future<int> issueCount(String query) async {
   final params = <String, dynamic>{'q': query};
   var count = 0;
 
-  var response = await gitHub.request('GET', '/search/issues', params: params);
+  final response =
+      await gitHub.request('GET', '/search/issues', params: params);
   if (response.statusCode == 403 && response.body.contains('rate limit')) {
     throw RateLimitHit(gitHub);
   }
 
-  final input = jsonDecode(response.body);
+  final Map input = jsonDecode(response.body);
   count = input['total_count'] ?? 0;
 
   gitHub.dispose();

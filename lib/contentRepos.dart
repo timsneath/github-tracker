@@ -7,7 +7,7 @@
 // Since this is a manually-curated list, there is *always* the possibility of
 // error. Please feel free to file an issue or a pull request if you see
 // something in the wrong category.
-const List contentRepos = [
+final contentRepos = <String>[
   '996icu/996.ICU',
   'freeCodeCamp/freeCodeCamp',
   'EbookFoundation/free-programming-books',

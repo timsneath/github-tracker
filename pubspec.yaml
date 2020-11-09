@@ -1,10 +1,17 @@
 name: github_tracker
+description: A Dart utility to track popularity of GitHub projects.
+
+environment:
+  sdk: '>=2.12.0-0.0.dev <3.0.0'
 
 dependencies:
-  args: ^1.6.0
-  http: ^0.12.1
-  intl: ^0.16.1
-  github: ^6.2.2
+  args: 
+    git:
+      url: https://github.com/dart-lang/args.git
+      ref: null_safety
+  github: ^7.0.3
+  http: ^0.12.2
+  intl: ^0.17.0-nullsafety.2
 
 dev_dependencies:
-  pedantic: ^1.9.0
+  lint: ^1.2.0
