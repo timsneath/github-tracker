@@ -1,5 +1,8 @@
 name: github_tracker
 
+environment: 
+  sdk: '>=2.7.0 <3.0.0'
+
 dependencies:
   args: ^1.6.0
   http: ^0.12.1
