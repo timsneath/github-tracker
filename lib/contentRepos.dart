@@ -7,7 +7,7 @@
 // Since this is a manually-curated list, there is *always* the possibility of
 // error. Please feel free to file an issue or a pull request if you see
 // something in the wrong category.
-const List contentRepos = [
+const List<String> contentRepos = [
   '996icu/996.ICU',
   'freeCodeCamp/freeCodeCamp',
   'EbookFoundation/free-programming-books',
@@ -61,5 +61,14 @@ const List contentRepos = [
   'jaywcjlove/awesome-mac',
   'labuladong/fucking-algorithm',
   'aymericdamien/TensorFlow-Examples',
-  'Hack-with-Github/Awesome-Hacking'
+  'Hack-with-Github/Awesome-Hacking',
+  '30-seconds/30-seconds-of-interviews',
+  '30-seconds/30-seconds-of-code',
+  '30-seconds/30-seconds-of-css',
+  '30-seconds/30-seconds-of-python',
+  '30-seconds/30-seconds-of-react',
+  '30-seconds/30-seconds-of-golang',
+  '30-seconds/30-seconds-of-csharp',
+  '30-seconds/30-seconds-of-php',
+  '30-seconds/30-seconds-of-dart',
 ];
