@@ -77,4 +77,5 @@ const List contentRepos = [
   'ryanmcdermott/clean-code-javascript',
   'doocs/advanced-java',
   'iluwatar/java-design-patterns',
+  'azl397985856/leetcode',
 ];
