@@ -80,4 +80,5 @@ const List contentRepos = [
   'azl397985856/leetcode',
   'trekhleb/javascript-algorithms',
   '521xueweihan/HelloGitHub',
+  'florinpop17/app-ideas',
 ];
