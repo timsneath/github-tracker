@@ -81,4 +81,5 @@ const List contentRepos = [
   'trekhleb/javascript-algorithms',
   '521xueweihan/HelloGitHub',
   'florinpop17/app-ideas',
+  'TheAlgorithms/Python',
 ];
