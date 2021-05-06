@@ -1,13 +1,13 @@
 name: github_tracker
 
 environment: 
-  sdk: '>=2.7.0 <3.0.0'
+  sdk: '>=2.12.0 <3.0.0'
 
 dependencies:
-  args: ^1.6.0
-  http: ^0.12.1
-  intl: ^0.16.1
-  github: ^7.0.3
+  args: ^2.1.0
+  http: ^0.13.3
+  intl: ^0.17.0
+  github: ^8.1.0
 
 dev_dependencies:
-  pedantic: ^1.9.0
+  pedantic: ^1.11.0

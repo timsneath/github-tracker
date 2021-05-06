@@ -1,13 +1,10 @@
 import 'dart:math' show min, max;
 
-import 'package:args/args.dart';
 import 'package:github/github.dart';
 import 'package:intl/intl.dart';
 
 import 'lib/contentRepos.dart';
 import 'lib/args.dart';
-
-ArgResults argResults;
 
 Future main(List<String> args) async {
   final parser = repoParser
@@ -19,7 +16,7 @@ Future main(List<String> args) async {
             'Useful for appending to a CSV file for graphing trends.\n'
             'Default is to export normally.');
 
-  argResults = parser.parse(args);
+  final argResults = parser.parse(args);
   if (argResults['help']) {
     print('Prints a ranked list of the top GitHub repos based on the specified '
         'options.\n\n'
@@ -55,8 +52,8 @@ Future main(List<String> args) async {
 
   if (!argResults['csv-output']) {
     // find the longest repo name; we'll use this for padding the text later
-    final maxRepoNameLength =
-        reposList.fold(0, (t, e) => max<int>(t, e.fullName.length));
+    final maxRepoNameLength = reposList.fold(
+        0, (int t, Repository e) => max<int>(t, e.fullName.length));
 
     if (argResults['include-header']) {
       print('  #  '
