@@ -84,4 +84,5 @@ const List contentRepos = [
   'TheAlgorithms/Python',
   'DopplerHQ/awesome-interview-questions',
   'trimstray/the-book-of-secret-knowledge',
+  'leonardomso/33-js-concepts',
 ];
