@@ -85,4 +85,5 @@ const List contentRepos = [
   'DopplerHQ/awesome-interview-questions',
   'trimstray/the-book-of-secret-knowledge',
   'leonardomso/33-js-concepts',
+  'sdmg15/Best-websites-a-programmer-should-visit',
 ];
