@@ -10,4 +10,4 @@ dependencies:
   github: ^8.1.0
 
 dev_dependencies:
-  pedantic: ^1.11.0
+  lints: ^1.0.1

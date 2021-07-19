@@ -1,1 +1,6 @@
-include: package:pedantic/analysis_options.yaml
+include: package:lints/recommended.yaml
+
+# The rule is right, but the ship has sailed... :(
+linter:
+  rules:
+    file_names: false
