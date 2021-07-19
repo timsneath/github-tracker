@@ -1,8 +1,9 @@
 # GitHub Repo Tracker
 
-[![Build Status](https://travis-ci.org/timsneath/github-tracker.svg?branch=master)](https://travis-ci.org/timsneath/github-tracker)
-
 Grabs useful information from GitHub.
+
+[![Language](https://img.shields.io/badge/language-Dart-blue.svg)](https://dart.dev)
+![Build](https://github.com/timsneath/github-tracker/workflows/Build/badge.svg)
 
 | Command      | Description                                         |
 |--------------|-----------------------------------------------------|
