@@ -18,7 +18,7 @@ Also make sure to grab the dependencies first:
 
 ```bash
 cd path/to/github-tracker
-pub get
+dart pub get
 ```
 
 You can get help on the available commands by running:
