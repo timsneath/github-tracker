@@ -12,14 +12,14 @@ import 'lib/args.dart';
 /// https://github.com/flutter/flutter/issues?q=is%3Aopen+is%3Aissue+label%3A%22a%3A+annoyance%22+-label%3Aplugin
 ///
 /// maps to:
-///   `$ dart count-issues.dart --repo flutter/flutter --filter is:open,is:issue,label:\"a:\ annoyance\",-label:plugin`
+///   `$ dart count_issues.dart --repo flutter/flutter --filter is:open,is:issue,label:\"a:\ annoyance\",-label:plugin`
 /// or, equivalently:
-///   `$ dart count-issues.dart --repo flutter/flutter --filter is:open --filter is:issue --filter label:\"a:\ annoyance\" --filter -label:plugin`
+///   `$ dart count_issues.dart --repo flutter/flutter --filter is:open --filter is:issue --filter label:\"a:\ annoyance\" --filter -label:plugin`
 ///
 /// (Note the escaping of the quote and space in UNIX-style shell environments.)
 Future<void> main(List<String> args) async {
   final argResults = issueParser.parse(args);
-  if (argResults['help']) {
+  if (argResults['help'] == true) {
     print('Prints the number of responses available for the given Github label '
         'query.\n\n'
         'Usage: dart count-issues.dart [options]\n\n'
@@ -44,12 +44,13 @@ Future<int> issueCount(String query) async {
   final params = <String, dynamic>{'q': query};
   var count = 0;
 
-  var response = await gitHub.request('GET', '/search/issues', params: params);
+  final response =
+      await gitHub.request('GET', '/search/issues', params: params);
   if (response.statusCode == 403 && response.body.contains('rate limit')) {
     throw RateLimitHit(gitHub);
   }
 
-  final input = jsonDecode(response.body);
+  final input = jsonDecode(response.body) as Map<String, int>;
   count = input['total_count'] ?? 0;
 
   gitHub.dispose();
